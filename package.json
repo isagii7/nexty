@@ -1,0 +1,23 @@
+{
+  "name": "nexty-session-generator",
+  "version": "1.0.0",
+  "description": "Nexty Bot - WhatsApp Session Generator",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Nexty Bot",
+  "license": "ISC",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.21",
+    "awesome-phonenumber": "7.2.0",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "path": "^0.12.7",
+    "pino": "9.5.0"
+  }
+}
