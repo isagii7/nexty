@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexty Bot - Session Generator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+    :root{--bg:#0a0a0f;--card:#111118;--border:#1e1e2e;--green:#00e676;--green-dim:#00e67620;--green-glow:#00e67640;--text:#e8e8f0;--muted:#6b6b80;--error:#ff4757}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px;background-image:radial-gradient(ellipse at 50% 0%,#00e67610 0%,transparent 60%)}
+    .container{width:100%;max-width:440px;background:var(--card);border-radius:20px;padding:28px;border:1px solid var(--border);box-shadow:0 0 40px #00e67610}
+    .header{text-align:center;margin-bottom:24px}
+    .logo{width:68px;height:68px;margin:0 auto 14px;background:var(--green-dim);border:1.5px solid var(--green);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 0 30px var(--green-glow)}
+    .title{font-size:24px;font-weight:700;color:var(--text);margin-bottom:6px}
+    .title span{color:var(--green)}
+    .subtitle{font-size:13.5px;color:var(--muted);margin-bottom:18px}
+    .social-icons{display:flex;justify-content:center;gap:10px;margin-bottom:4px}
+    .social-icons a{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-decoration:none;transition:all .3s ease}
+    .social-icons a.youtube{background:#FF0000}
+    .social-icons a.telegram{background:#0088cc}
+    .social-icons a.whatsapp{background:#25D366}
+    .social-icons a.github{background:#333}
+    .social-icons a:hover{transform:scale(1.12);box-shadow:0 4px 14px rgba(0,0,0,.3)}
+    .input-label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;margin-top:20px}
+    .input-field{width:100%;padding:13px 16px;background:#0d0d14;border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:15px;outline:none;transition:border-color .2s}
+    .input-field:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim)}
+    .input-field::placeholder{color:var(--muted)}
+    .generate-btn{width:100%;padding:14px;background:var(--green);border:none;border-radius:12px;color:#000;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:14px}
+    .generate-btn:hover{background:#00ff85;box-shadow:0 0 20px var(--green-glow)}
+    .generate-btn:disabled{opacity:.5;cursor:not-allowed}
+    .loading{display:none;text-align:center;margin:16px 0}
+    .loading i{font-size:22px;color:var(--green);animation:spin 1s linear infinite}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .code-display{background:#0d0d14;border:1.5px solid var(--border);padding:14px;border-radius:12px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;margin-top:14px;min-height:48px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+    .code-display.has-code{border-color:var(--green);color:var(--green);font-size:22px;letter-spacing:3px;box-shadow:0 0 15px var(--green-glow)}
+    .copy-btn{width:100%;padding:12px;background:transparent;border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;transition:all .2s}
+    .copy-btn:hover{border-color:var(--green);color:var(--green)}
+    .success-msg{color:var(--green);display:flex;align-items:center;gap:8px}
+    .error-msg{color:var(--error);display:flex;align-items:center;gap:8px;font-size:13px}
+    .instruction{background:#0d0d14;border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-top:14px;font-size:13px;color:var(--muted);line-height:1.7;display:none}
+    .instruction strong{color:var(--text)}
+    .footer{text-align:center;margin-top:22px;font-size:12px;color:var(--muted)}
+    .footer span{color:var(--green)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">⚡</div>
+      <h1 class="title">NEXTY <span>SESSION</span></h1>
+      <p class="subtitle">Generate your bot session in seconds</p>
+      <div class="social-icons">
+        <a href="https://youtube.com" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="https://t.me" target="_blank" class="telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://whatsapp.com" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://github.com/isagii7" target="_blank" class="github"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <label class="input-label">WhatsApp Number with Country Code</label>
+    <input type="text" id="mobileNumber" class="input-field" placeholder="+923001234567"/>
+    <button class="generate-btn" id="submit"><i class="fas fa-key"></i> Generate Pairing Code</button>
+    <div class="loading" id="loading"><i class="fas fa-spinner"></i></div>
+    <div class="code-display" id="codeDisplay">Your pairing code will appear here</div>
+    <div class="instruction" id="instruction">
+      <strong>How to link:</strong><br>
+      1. Open WhatsApp → Linked Devices<br>
+      2. Tap <strong>Link a Device</strong><br>
+      3. Tap <strong>Link with phone number</strong><br>
+      4. Enter the code above<br><br>
+      ✅ Once linked, your <strong>NEXTY session ID</strong> will be sent to your WhatsApp inbox!
+    </div>
+    <button class="copy-btn" id="copy" onclick="copyCode()"><i class="fas fa-copy"></i> Copy Code</button>
+    <div class="footer">Powered by <span>Nexty Bot</span> • Baileys • © 2025 Nexty</div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let lastCode='';
+    document.getElementById("submit").addEventListener("click",async(e)=>{
+      e.preventDefault();
+      const mobileNumber=document.getElementById("mobileNumber").value.trim();
+      const codeDisplay=document.getElementById("codeDisplay");
+      const loading=document.getElementById("loading");
+      const instruction=document.getElementById("instruction");
+      const btn=document.getElementById("submit");
+      if(!mobileNumber){codeDisplay.className='code-display';codeDisplay.innerHTML='<span class="error-msg"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</span>';return;}
+      loading.style.display="block";codeDisplay.className='code-display';codeDisplay.innerHTML='';instruction.style.display='none';btn.disabled=true;
+      try{
+        const response=await axios(`/pair?number=${mobileNumber.replace(/[^0-9]/g,"")}`);
+        const code=response.data.code||"Service Unavailable";
+        if(code==="Service Unavailable"||code.startsWith("Failed")||code.startsWith("Invalid")){
+          codeDisplay.innerHTML=`<span class="error-msg"><i class="fas fa-exclamation-circle"></i> ${code}</span>`;
+        }else{
+          lastCode=code;codeDisplay.className='code-display has-code';codeDisplay.innerHTML=code;instruction.style.display='block';
+        }
+      }catch(error){
+        codeDisplay.innerHTML='<span class="error-msg"><i class="fas fa-exclamation-circle"></i> Error generating code. Try again.</span>';
+      }finally{loading.style.display="none";btn.disabled=false;}
+    });
+    function copyCode(){
+      if(!lastCode)return;
+      navigator.clipboard.writeText(lastCode).then(()=>{
+        const btn=document.getElementById("copy");
+        btn.innerHTML='<i class="fas fa-check"></i> Copied!';
+        setTimeout(()=>{btn.innerHTML='<i class="fas fa-copy"></i> Copy Code';},2000);
+      });
+    }
+    document.getElementById("mobileNumber").addEventListener("keypress",e=>{if(e.key==="Enter")document.getElementById("submit").click();});
+  </script>
+</body>
+</html>
